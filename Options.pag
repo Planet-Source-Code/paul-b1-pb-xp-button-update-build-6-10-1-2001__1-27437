@@ -1,0 +1,232 @@
+VERSION 5.00
+Begin VB.PropertyPage Options 
+   Caption         =   "Options"
+   ClientHeight    =   3495
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5925
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3495
+   ScaleWidth      =   5925
+   Begin VB.CheckBox Check2 
+      Caption         =   "Show Focus Rect"
+      Height          =   285
+      Left            =   2985
+      TabIndex        =   15
+      Top             =   1410
+      Width           =   2700
+   End
+   Begin VB.CheckBox Check1 
+      Caption         =   "Multiline text"
+      Height          =   285
+      Left            =   2985
+      TabIndex        =   14
+      Top             =   420
+      Width           =   2700
+   End
+   Begin VB.CheckBox chkShowShadowOver 
+      Caption         =   "Show Shadow on Mouse Over"
+      Height          =   285
+      Left            =   2985
+      TabIndex        =   9
+      Top             =   735
+      Width           =   2700
+   End
+   Begin VB.TextBox txtShadowSize 
+      Height          =   330
+      Left            =   4065
+      TabIndex        =   8
+      Top             =   1860
+      Width           =   525
+   End
+   Begin VB.CheckBox chkDisabled 
+      Caption         =   "Disabled"
+      Height          =   285
+      Left            =   2985
+      TabIndex        =   6
+      Top             =   1080
+      Width           =   2700
+   End
+   Begin VB.TextBox txtIconSizeHeight 
+      Height          =   330
+      Left            =   135
+      TabIndex        =   5
+      Top             =   2505
+      Width           =   2700
+   End
+   Begin VB.TextBox txtIconSizeWidth 
+      Height          =   330
+      Left            =   135
+      TabIndex        =   3
+      Top             =   1860
+      Width           =   2700
+   End
+   Begin VB.TextBox txtCaption 
+      Height          =   1125
+      Left            =   105
+      MultiLine       =   -1  'True
+      ScrollBars      =   3  'Both
+      TabIndex        =   1
+      ToolTipText     =   "Hint: Click Ctrl & Enter to go to next line"
+      Top             =   370
+      Width           =   2730
+   End
+   Begin VB.Label Label1 
+      Caption         =   "http://pbtools.port5.com"
+      Height          =   240
+      Index           =   3
+      Left            =   3735
+      TabIndex        =   16
+      Top             =   3015
+      Width           =   2475
+   End
+   Begin VB.Label Label2 
+      Height          =   255
+      Left            =   3735
+      TabIndex        =   13
+      Top             =   3225
+      Width           =   2505
+   End
+   Begin VB.Label Label1 
+      Caption         =   "PB XP Button "
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   240
+      Index           =   2
+      Left            =   3720
+      TabIndex        =   12
+      Top             =   2310
+      Width           =   2475
+   End
+   Begin VB.Label Label1 
+      Caption         =   "pbtools@ntlworld.com"
+      Height          =   240
+      Index           =   1
+      Left            =   3735
+      TabIndex        =   11
+      Top             =   2790
+      Width           =   2475
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Coded by Paul Beviss"
+      Height          =   240
+      Index           =   0
+      Left            =   3720
+      TabIndex        =   10
+      Top             =   2565
+      Width           =   2475
+   End
+   Begin VB.Label lblShadowSize 
+      Caption         =   "ShadowSize:"
+      Height          =   240
+      Left            =   2970
+      TabIndex        =   7
+      Top             =   1905
+      Width           =   1020
+   End
+   Begin VB.Label lblIconSizeHeight 
+      Caption         =   "IconSizeHeight:"
+      Height          =   240
+      Left            =   135
+      TabIndex        =   4
+      Top             =   2265
+      Width           =   2700
+   End
+   Begin VB.Label lblIconSizeWidth 
+      Caption         =   "IconSizeWidth:"
+      Height          =   240
+      Left            =   135
+      TabIndex        =   2
+      Top             =   1605
+      Width           =   2700
+   End
+   Begin VB.Label lblCaption 
+      Caption         =   "Caption:"
+      Height          =   240
+      Left            =   105
+      TabIndex        =   0
+      Top             =   75
+      Width           =   2700
+   End
+End
+Attribute VB_Name = "Options"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Private Sub Check1_Click()
+ Changed = True
+End Sub
+
+Private Sub Check2_Click()
+Changed = True
+End Sub
+
+Private Sub chkShowShadowOver_Click()
+    Changed = True
+End Sub
+
+Private Sub PropertyPage_Initialize()
+Label2.Caption = "Version " & App.Major & "." & App.Minor & " Build: " & App.Revision
+
+End Sub
+
+Private Sub txtShadowSize_Change()
+    Changed = True
+End Sub
+
+
+Private Sub chkDisabled_Click()
+    Changed = True
+End Sub
+
+
+Private Sub txtIconSizeHeight_Change()
+    Changed = True
+End Sub
+
+
+Private Sub txtIconSizeWidth_Change()
+    Changed = True
+End Sub
+
+
+Private Sub txtCaption_Change()
+    Changed = True
+End Sub
+
+
+Private Sub PropertyPage_ApplyChanges()
+    SelectedControls(0).ShowShadowOver = (chkShowShadowOver.Value = vbChecked)
+    SelectedControls(0).ShadowSize = txtShadowSize.Text
+    SelectedControls(0).Disabled = (chkDisabled.Value = vbChecked)
+    SelectedControls(0).IconSizeHeight = txtIconSizeHeight.Text
+    SelectedControls(0).IconSizeWidth = txtIconSizeWidth.Text
+    SelectedControls(0).Caption = txtCaption.Text
+    SelectedControls(0).MultiLine = (Check1.Value = vbChecked)
+    SelectedControls(0).ShowFocus = (Check2.Value = vbChecked)
+End Sub
+
+
+
+Private Sub PropertyPage_SelectionChanged()
+    chkShowShadowOver.Value = (SelectedControls(0).ShowShadowOver And vbChecked)
+    txtShadowSize.Text = SelectedControls(0).ShadowSize
+    chkDisabled.Value = (SelectedControls(0).Disabled And vbChecked)
+    txtIconSizeHeight.Text = SelectedControls(0).IconSizeHeight
+    txtIconSizeWidth.Text = SelectedControls(0).IconSizeWidth
+    txtCaption.Text = SelectedControls(0).Caption
+    Check1.Value = (SelectedControls(0).MultiLine And vbChecked)
+    Check2.Value = (SelectedControls(0).ShowFocus And vbChecked)
+End Sub
+
+
